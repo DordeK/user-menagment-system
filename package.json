@@ -1,0 +1,28 @@
+{
+  "name": "user-menagment-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DordeK/user-menagment-system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DordeK/user-menagment-system/issues"
+  },
+  "homepage": "https://github.com/DordeK/user-menagment-system#readme",
+  "devDependencies": {
+    "prisma": "3.12.0"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19",
+    "@prisma/client": "3.12.0"
+  }
+}
