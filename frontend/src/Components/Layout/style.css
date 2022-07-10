@@ -1,0 +1,10 @@
+.layoutBox{
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+}
+
+.layoutCenterBox{
+    width:70%;
+}

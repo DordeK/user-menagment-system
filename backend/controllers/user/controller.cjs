@@ -2,11 +2,17 @@ const {prisma} = require('../../database/querys.cjs')
 
 const getAllUsers = async (req, res) => {
     const page = req.query.page
-    const take = 5
+    const take = 9
     const skip = page*take;
 
-    const order = req.query?.order || null
-    const order_by = order ? {created_at: order} : null
+    const querryObject = req.query
+    delete querryObject['page']
+    
+    const orderByObject = Object.keys(querryObject)
+                            .filter(key => !key.includes('filter'))
+                            .map(key => {
+                            return {[key]:querryObject[key]}
+                            })
 
     const filterText = req.query?.filterText || ''
     const filterField = req.params.filterField || ''
@@ -15,23 +21,46 @@ const getAllUsers = async (req, res) => {
         return res.status(403).send('incorect querys')
     }
 
-    let filterObj = {}
-    if(filterField){
-        filterObj[filterField] = {
-            contains:filterText
-        }
+    const contains_filter_text = {
+        contains: querryObject['filter_text'] || ""
+    }
+
+    let filterObj = {
+        OR: [
+            {
+                'username':{
+                    ...contains_filter_text
+                }
+            },
+            {
+                'email':{
+                    ...contains_filter_text
+                }
+            },
+            {
+                'first_name':{
+                    ...contains_filter_text
+                }
+            },
+            {
+                'last_name':{
+                    ...contains_filter_text
+                }
+            }
+        ]
     }
 
     const users = await prisma.user.findMany({
         skip,
         take,
         where: {
-            ...filterObj
+            OR:filterObj.OR
         },
-        orderBy: {
-            ...order_by
-        },
+        orderBy: [
+            ...orderByObject
+        ],
     })
+
     res.send(users)
 }
 
@@ -52,41 +81,39 @@ const addUser = async (req, res) => {
     const username = req.body.username
     const password = req.body.password
     const email = req.body.email
-    console.log(req.body);
-    console.log({            
-        first_name,
-        last_name,
-        username,
-        password,
-        email
-    });
 
-    const addedUser = await prisma.user.create({
-        data:{
-            first_name,
-            last_name,
-            username,
-            password,
-            email
-        }
-    })
-    res.send(addedUser)
+    try {
+        const addedUser = await prisma.user.create({
+            data:{
+                first_name,
+                last_name,
+                username,
+                password,
+                email
+            }
+        })
+        res.send(addedUser)
+    } catch (error) {
+        res.send(error)
+    }
 }
 
 const editUser = async (req, res) => {
     const userUuid = req.body.id
     const updateData = req.body.updateData
-
-    
-    const updatedUser = await prisma.user.update({
-        where: {
-            id: userUuid,
-          },
-          data: {
-            ...updateData
-          },
-    })
-    res.send(updatedUser)
+    try{
+        const updatedUser = await prisma.user.update({
+            where: {
+                id: userUuid,
+            },
+            data: {
+                ...updateData
+            },
+        })
+        res.send(updatedUser)
+    } catch (error) {
+        res.send(error)
+    }
 }
 
 const deleteUser = async (req, res) => {

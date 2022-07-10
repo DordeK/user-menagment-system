@@ -1,0 +1,12 @@
+.addUserForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.addUserErrorMessage{
+    color:red;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
