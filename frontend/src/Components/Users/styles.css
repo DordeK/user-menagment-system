@@ -9,7 +9,10 @@
 }
 
 .cardField{
+    width:100px;
+    overflow-y:scroll;
     display: flex;
+    flex-wrap: wrap;
     flex-direction:column;
 }
 
@@ -21,6 +24,10 @@
     border-radius: 5px;
     padding:5px;
     font-size: 15px;
+}
+
+.currentPage{
+    background: grey !important
 }
 
 .pagginationNum:hover{
@@ -46,10 +53,9 @@
 
 .userFields{
     display:flex;
-    justify-content:space-between;
+    /* justify-content:space-between; */
     align-items:center;
-    margin-left: 20px;
-    margin-right: 20px;
+    /* margin-left: 20px; */
 }
 
 .arrowUpDown{
@@ -61,6 +67,7 @@
 }
 
 .userField{
+    width: 14%;
     display: flex;
     justify-content:center;
     align-items:center;
@@ -112,25 +119,30 @@
     color:white;
     padding:10px;
     border:1px solid black;
-
 }
 
-/* TODO: box sizing chnages on hover */
-.deleteIcon:hover{
+.modalBackdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background-color:rgba(0,0,0,0.8);
+}
+
+.icon:hover{
     background:grey;
     border-radius: 20px;
-    padding: 5px;
+}
+.icon{
+    padding:5px
 }
 
-.editIcon{
+.deleteIcon{
     margin-left: 20px;
+    margin-right: 20px;
 }
 
-.editIcon:hover{
-    background:grey;
-    border-radius: 20px;
-    padding: 5px;
-}
 .header{
     display: flex;
     flex-direction: column;

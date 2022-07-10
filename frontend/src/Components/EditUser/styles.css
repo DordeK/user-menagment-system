@@ -1,0 +1,25 @@
+.formInput{
+    margin:20px;
+}
+.formInput > input, .dropdown {
+    height:30px;
+    width:300px;
+    border-radius:10px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    font-size: 20px;
+}
+.inputLabel{
+    display: flex;
+    justify-content: center;
+    margin:10px
+}
+
+.formSubmit{
+    padding:10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius:10px;
+
+}
